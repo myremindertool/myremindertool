@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Permit Buffer Countdown</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .date {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .big {
+      font-size: 2.3rem;
+      color: #007BFF;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .note {
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.2rem;
+      }
+      .big {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🕒 Work Permit – Buffer Days</h1>
+    <p class="date" id="today">Today: Loading...</p>
+    <p class="date">Due Date: <strong>12 May 2025</strong></p>
+    <p class="big" id="countdown">Loading...</p>
+    <p class="note">(including today)</p>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const dueDate = new Date("2025-05-12T00:00:00");
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // Format today's date
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const todayStr = today.toLocaleDateString(undefined, options);
+
+      // Set today's date
+      document.getElementById("today").innerHTML = "Today: <strong>" + todayStr + "</strong>";
+
+      // Calculate remaining days
+      const diffTime = dueDate.getTime() - today.getTime();
+      const daysRemaining = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+      if (daysRemaining < 0) {
+        document.getElementById("countdown").innerHTML = "⚠️ Time's up!";
+      } else {
+        document.getElementById("countdown").innerHTML = daysRemaining + " days remaining";
+      }
+    };
+  </script>
+</body>
+</html>
