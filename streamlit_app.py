@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pdfplumber
 import pandas as pd
@@ -70,7 +69,8 @@ if uploaded_file is not None:
         buffer = io.BytesIO()
         with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
             extracted_data.to_excel(writer, index=False, sheet_name='MOL Data')
-            writer.save()
+        buffer.seek(0)
+
         st.download_button(
             label="📥 Download Excel File",
             data=buffer,
