@@ -8,45 +8,66 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      background: linear-gradient(to bottom right, #ffe6ec, #fff7db);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       padding: 20px;
       text-align: center;
+      animation: fadeIn 2s ease-in-out;
     }
 
     .card {
-      background: #fff;
+      background: #ffffffcc;
+      backdrop-filter: blur(5px);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 20px rgba(255, 173, 173, 0.2);
       max-width: 400px;
       width: 90%;
+      animation: fadeInUp 1.5s ease-in-out;
     }
 
     h1 {
       font-size: 1.4rem;
-      color: #333;
+      color: #cc3366;
       margin-bottom: 10px;
     }
 
     .date {
       font-size: 1rem;
-      color: #555;
+      color: #773344;
     }
 
     .big {
       font-size: 2.3rem;
-      color: #007BFF;
+      color: #d63384;
       font-weight: bold;
       margin: 20px 0;
     }
 
-    .note {
-      color: #777;
+    .note, .extra {
+      color: #995577;
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+
+    .message {
+      font-style: italic;
       font-size: 0.9rem;
+      color: #999;
+      margin-top: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 500px) {
@@ -66,6 +87,9 @@
     <p class="date">Due Date: <strong>12 May 2025</strong></p>
     <p class="big" id="countdown">Loading...</p>
     <p class="note">(including today)</p>
+    <div class="extra">🗓️ Expected Joining Date: <strong>11 May 2025</strong></div>
+    <div class="extra">🚫 Expected Permit Cancellation: <strong>25 April 2025</strong></div>
+    <p class="message">Even when you don’t see it, God is silently working things out for you. 🌿</p>
   </div>
 
   <script>
@@ -74,14 +98,11 @@
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
-      // Format today's date
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       const todayStr = today.toLocaleDateString(undefined, options);
 
-      // Set today's date
       document.getElementById("today").innerHTML = "Today: <strong>" + todayStr + "</strong>";
 
-      // Calculate remaining days
       const diffTime = dueDate.getTime() - today.getTime();
       const daysRemaining = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
