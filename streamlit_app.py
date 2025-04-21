@@ -53,7 +53,7 @@ def extract_tables(pdf_file):
 # Streamlit UI
 st.set_page_config(page_title="MOL PDF to Excel", layout="centered")
 st.title("📄 MOL PDF to Excel Converter")
-st.write("Developed by JP - Upload your MOL PDF and download cleaned Excel data.")
+st.write("Developed by JPC - Upload your MOL PDF and download cleaned Excel data.")
 
 uploaded_file = st.file_uploader("Upload your PDF file", type=["pdf"])
 
