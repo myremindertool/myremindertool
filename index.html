@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Permit Buffer Countdown</title>
+  <title>New Work Permit Countdown</title>
   <style>
     body {
       margin: 0;
@@ -12,7 +12,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       padding: 20px;
       text-align: center;
       animation: fadeIn 2s ease-in-out;
@@ -21,45 +21,69 @@
     .card {
       background: #ffffffcc;
       backdrop-filter: blur(5px);
-      padding: 30px;
+      padding: 40px 30px;
       border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(255, 173, 173, 0.2);
-      max-width: 460px;
-      width: 90%;
+      box-shadow: 0 10px 25px rgba(255, 173, 173, 0.25);
+      max-width: 500px;
+      width: 100%;
       animation: fadeInUp 1.5s ease-in-out;
     }
 
     h1 {
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       color: #cc3366;
       margin-bottom: 10px;
+    }
+
+    .message {
+      font-style: italic;
+      font-size: 1rem;
+      color: #666;
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      color: #773344;
+      font-size: 1.2rem;
+      margin-top: 25px;
+      margin-bottom: 10px;
+      text-decoration: underline;
     }
 
     .date {
       font-size: 1rem;
       color: #773344;
-    }
-
-    .big {
-      font-size: 2.3rem;
-      color: #d63384;
-      font-weight: bold;
-      margin: 20px 0;
-    }
-
-    .note, .extra {
-      color: #995577;
-      font-size: 0.95rem;
       margin-top: 10px;
     }
 
-    .message {
-      font-style: italic;
+    .countdown {
+      font-size: 1.8rem;
+      color: #d63384;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    .important-dates {
+      text-align: left;
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+
+    .important-dates p {
+      margin: 8px 0;
+    }
+
+    strong {
+      color: #d63384;
+    }
+
+    .note {
       font-size: 0.9rem;
-      color: #666;
+      color: #995577;
       margin-top: 5px;
-      min-height: 50px;
-      transition: opacity 1s ease-in-out;
     }
 
     @keyframes fadeIn {
@@ -74,32 +98,35 @@
 
     @media (max-width: 500px) {
       h1 {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
       }
-      .big {
-        font-size: 2rem;
+      .countdown {
+        font-size: 1.6rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>🕒 New Work Permit – Buffer Days</h1>
+    <h1>🕒 New Work Permit – Countdown</h1>
 
-    <!-- Godly message at top -->
-    <p class="message" id="motivation"></p>
+    <p class="message" id="motivation">Loading inspirational message...</p>
 
     <p class="date" id="today">Today: Loading...</p>
-    <p class="date" id="cancellation">✅ Old Work Permit Cancellation Completed on: Loading...</p>
     <p class="date">Due Date: <strong>12 May 2025</strong></p>
-    <p class="big" id="countdown">Loading...</p>
-    <p class="note">(excluding today)</p>
+    <p class="countdown" id="countdown">Loading days remaining...</p>
+    <p class="note">(including today)</p>
 
-    <div class="extra">🗓️ Expected Joining Date: <span id="joiningDate">Loading...</span></div>
-    <div class="extra">🛂 Indian Consulate Attestation: <strong>26 April 2025</strong></div>
-    <div class="extra">🌍 MOFA Attestation: <strong>28 April 2025</strong></div>
-    <div class="extra">📄 Date to Apply for New Work Permit: <span id="applyDate">Loading...</span></div>
-    <div class="extra">🛂 Visa Expiry Date: <span id="visaDate">Loading...</span></div>
+    <div class="section-title">📋 Important Dates:</div>
+
+    <div class="important-dates">
+      <p>✅ Old Work Permit Cancellation Completed on: <strong id="cancellation">Loading...</strong></p>
+      <p>🗓️ Expected Joining Date: <span id="joiningDate">Loading...</span></p>
+      <p>🛂 Indian Consulate Attestation: <strong>26 April 2025</strong></p>
+      <p>🌍 MOFA Attestation: <strong>28 April 2025</strong></p>
+      <p>📄 Apply for New Work Permit: <span id="applyDate">Loading...</span></p>
+      <p>🛂 Visa Expiry Date: <span id="visaDate">Loading...</span></p>
+    </div>
   </div>
 
   <script>
@@ -115,24 +142,21 @@
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       const todayStr = today.toLocaleDateString(undefined, options);
 
-      document.getElementById("today").innerHTML = "Today: <strong>" + todayStr + "</strong>";
-      document.getElementById("cancellation").innerHTML = "✅ Work Permit Cancellation Completed: <strong>" + todayStr + "</strong>";
-      // Footer today's date removed
+      document.getElementById("today").innerHTML = "📅 Today: <strong>" + todayStr + "</strong>";
+      document.getElementById("cancellation").innerHTML = todayStr;  // Just show date here
 
       const diffDays = (d1, d2) => {
         const t1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
         const t2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
-        return Math.floor((t2 - t1) / (1000 * 60 * 60 * 24)); // Excluding today
+        return Math.floor((t2 - t1) / (1000 * 60 * 60 * 24));
       };
 
-      const daysToDue = diffDays(today, dueDate);
-      const daysToJoining = diffDays(today, joiningDate);
-      const daysToApply = diffDays(today, applyDate);
-      const daysToVisa = diffDays(today, visaDate);
+      const daysToDue = diffDays(today, dueDate) + 1; // ✅ Add 1 to include today
+      const daysToJoining = diffDays(today, joiningDate) + 1;
+      const daysToApply = diffDays(today, applyDate) + 1;
+      const daysToVisa = diffDays(today, visaDate) + 1;
 
-      document.getElementById("countdown").innerHTML = daysToDue < 0
-        ? "⚠️ Time's up!"
-        : daysToDue + " days remaining";
+      document.getElementById("countdown").innerHTML = "🕒 " + (daysToDue > 0 ? daysToDue + " days remaining" : "⚠️ Time's up!");
 
       document.getElementById("joiningDate").innerHTML = "<strong>11 May 2025</strong>" + (daysToJoining >= 0 ? ` (${daysToJoining} days remaining)` : " (Date Passed)");
       document.getElementById("applyDate").innerHTML = "<strong>29 April 2025</strong>" + (daysToApply >= 0 ? ` (${daysToApply} days remaining)` : " (Date Passed)");
@@ -169,4 +193,3 @@
   </script>
 </body>
 </html>
-
