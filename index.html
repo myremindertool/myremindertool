@@ -120,12 +120,17 @@
     <div class="section-title">📋 Important Dates:</div>
 
     <div class="important-dates">
-      <p>✅ Old Work Permit Cancellation Completed on: <strong id="cancellation">Loading...</strong></p>
+      <p>✅ Old Work Permit Cancellation Completed: <strong id="cancellation">Loading...</strong></p>
       <p>🗓️ Expected Joining Date: <span id="joiningDate">Loading...</span></p>
-      <p>🛂 Indian Consulate Attestation: <strong>26 April 2025</strong></p>
-      <p>🌍 MOFA Attestation: <strong>28 April 2025</strong></p>
       <p>📄 Apply for New Work Permit: <span id="applyDate">Loading...</span></p>
       <p>🛂 Visa Expiry Date: <span id="visaDate">Loading...</span></p>
+    </div>
+
+    <div class="section-title">🎓 Degree Certificate Attestation Dates:</div>
+
+    <div class="important-dates">
+      <p>🛂 Indian Consulate Attestation: <strong>26 April 2025</strong></p>
+      <p>🌍 MOFA Attestation: <strong>28 April 2025</strong></p>
     </div>
   </div>
 
@@ -143,7 +148,7 @@
       const todayStr = today.toLocaleDateString(undefined, options);
 
       document.getElementById("today").innerHTML = "📅 Today: <strong>" + todayStr + "</strong>";
-      document.getElementById("cancellation").innerHTML = todayStr;  // Just show date here
+      document.getElementById("cancellation").innerHTML = todayStr;
 
       const diffDays = (d1, d2) => {
         const t1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
