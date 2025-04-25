@@ -24,7 +24,7 @@
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 10px 20px rgba(255, 173, 173, 0.2);
-      max-width: 420px;
+      max-width: 460px;
       width: 90%;
       animation: fadeInUp 1.5s ease-in-out;
     }
@@ -53,10 +53,15 @@
       margin-top: 10px;
     }
 
+    .highlight {
+      color: #3366cc; /* blue for important fields */
+      font-weight: bold;
+    }
+
     .message {
       font-style: italic;
       font-size: 0.9rem;
-      color: #777;
+      color: #666;
       margin-top: 20px;
       min-height: 50px;
       transition: opacity 1s ease-in-out;
@@ -64,7 +69,7 @@
 
     .today-message {
       font-size: 0.85rem;
-      color: #666;
+      color: #555;
       margin-top: 5px;
     }
 
@@ -90,26 +95,31 @@
 </head>
 <body>
   <div class="card">
-    <h1>🕒 New Work Permit – Buffer Days</h1>
+    <h1>🕒 Work Permit – Buffer Days</h1>
     <p class="date" id="today">Today: Loading...</p>
-    <p class="date" id="cancellation">✅ Old Work Permit Cancellation Completed: Loading...</p>
-    <p class="date">Due Date for applying New Work Permit: <strong>12 May 2025</strong></p>
+    <p class="date" id="cancellation">✅ Work Permit Cancellation Completed: Loading...</p>
+    <p class="date">Due Date: <strong>12 May 2025</strong></p>
     <p class="big" id="countdown">Loading...</p>
     <p class="note">(including today)</p>
 
     <div class="extra">🗓️ Expected Joining Date: <strong>11 May 2025</strong></div>
     <div class="extra">🛂 Indian Consulate Attestation: <strong>26 April 2025</strong></div>
     <div class="extra">🌍 MOFA Attestation: <strong>28 April 2025</strong></div>
+    <div class="extra highlight">📄 Date to Apply for New Work Permit: <span id="applyDate">Loading...</span></div>
+    <div class="extra">🛂 Visa Expiry Date: <span id="visaDate">Loading...</span></div>
 
-    <p class="message" id="motivationalMessage">Loading message...</p>
+    <p class="message" id="motivation"></p>
     <p class="today-message" id="footerToday">Loading date...</p>
   </div>
 
   <script>
     window.onload = function () {
-      const dueDate = new Date("2025-05-12T00:00:00");
       const today = new Date();
       today.setHours(0, 0, 0, 0);
+
+      const dueDate = new Date("2025-05-12");
+      const applyDate = new Date("2025-04-29");
+      const visaDate = new Date("2025-11-12");
 
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       const todayStr = today.toLocaleDateString(undefined, options);
@@ -118,43 +128,47 @@
       document.getElementById("cancellation").innerHTML = "✅ Work Permit Cancellation Completed: <strong>" + todayStr + "</strong>";
       document.getElementById("footerToday").innerHTML = "📅 " + todayStr;
 
-      const diffTime = dueDate.getTime() - today.getTime();
-      const daysRemaining = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      const diffDays = (d1, d2) => Math.floor((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
-      if (daysRemaining < 0) {
-        document.getElementById("countdown").innerHTML = "⚠️ Time's up!";
-      } else {
-        document.getElementById("countdown").innerHTML = daysRemaining + " days remaining";
-      }
+      const daysToDue = diffDays(today, dueDate);
+      const daysToApply = diffDays(today, applyDate);
+      const daysToVisa = diffDays(today, visaDate);
 
-      // Motivational messages
+      document.getElementById("countdown").innerHTML = daysToDue < 0
+        ? "⚠️ Time's up!"
+        : daysToDue + " days remaining";
+
+      document.getElementById("applyDate").innerHTML = "29 April 2025" + (daysToApply >= 0 ? ` (${daysToApply} days remaining)` : " (Date Passed)");
+      document.getElementById("visaDate").innerHTML = "12 November 2025" + (daysToVisa >= 0 ? ` (${daysToVisa} days remaining)` : " (Date Passed)");
+
+      // Motivational Messages
       const messages = [
-        "🌿 Even when you don’t see it, God is working through someone He trusts, for your good.",
-        "🌟 Your prayers are answered through souls God silently chooses to bless you.",
-        "🌸 Trust the timing — God sends help exactly when you need it, through trusted hands.",
-        "🌼 Stay patient. Someone has been sent for you, guided by His perfect plan.",
-        "✨ One day you'll realize — every blessing was delivered by hands chosen by God.",
-        "🍃 The miracles you wait for are already moving toward you, through the people He chooses.",
-        "💖 God's silent moves include sending a trusted heart to be there for you.",
-        "🎯 What is meant for you will find you — often through people sent by God.",
-        "🌿 Behind the scenes, He is arranging help for you through those He trusts.",
-        "💫 When you can't trace His hand, trust His heart — and the ones He places in your path."
+        "Even when you don’t see it, God is working through someone He trusts, for your good. 🌿",
+        "Your prayers are answered through souls God silently chooses to bless you. 🌟",
+        "Trust the timing — God sends help exactly when you need it, through trusted hands. 🌸",
+        "Stay patient. Someone has been sent for you, guided by His perfect plan. 🌼",
+        "One day you'll realize — every blessing was delivered by hands chosen by God. ✨",
+        "The miracles you wait for are already moving toward you, through the people He chooses. 🍃",
+        "God's silent moves include sending a trusted heart to be there for you. 💖",
+        "What is meant for you will find you — often through people sent by God. 🎯",
+        "Behind the scenes, He is arranging help for you through those He trusts. 🌿",
+        "When you can't trace His hand, trust His heart — and the ones He places in your path. 💫"
       ];
 
-      let index = 0;
-      const msgElement = document.getElementById("motivationalMessage");
+      let current = 0;
+      const motivationEl = document.getElementById("motivation");
 
-      function changeMessage() {
-        msgElement.style.opacity = 0;
+      function showMessage() {
+        motivationEl.style.opacity = 0;
         setTimeout(() => {
-          msgElement.innerHTML = messages[index];
-          msgElement.style.opacity = 1;
-          index = (index + 1) % messages.length;
-        }, 1000);
+          motivationEl.innerText = messages[current];
+          motivationEl.style.opacity = 1;
+          current = (current + 1) % messages.length;
+        }, 500);
       }
 
-      changeMessage(); // First message immediately
-      setInterval(changeMessage, 5000); // Change every 5 seconds
+      showMessage(); // Show first
+      setInterval(showMessage, 5000); // Rotate every 5 seconds
     };
   </script>
 </body>
