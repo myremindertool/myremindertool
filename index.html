@@ -56,8 +56,16 @@
     .message {
       font-style: italic;
       font-size: 0.9rem;
-      color: #999;
+      color: #777;
       margin-top: 20px;
+      min-height: 50px;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .today-message {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 5px;
     }
 
     @keyframes fadeIn {
@@ -82,7 +90,7 @@
 </head>
 <body>
   <div class="card">
-    <h1>🕒 Work Permit – Buffer Days</h1>
+    <h1>🕒 New Work Permit – Buffer Days</h1>
     <p class="date" id="today">Today: Loading...</p>
     <p class="date" id="cancellation">✅ Work Permit Cancellation Completed: Loading...</p>
     <p class="date">Due Date: <strong>12 May 2025</strong></p>
@@ -93,7 +101,8 @@
     <div class="extra">🛂 Indian Consulate Attestation: <strong>26 April 2025</strong></div>
     <div class="extra">🌍 MOFA Attestation: <strong>28 April 2025</strong></div>
 
-    <p class="message">Even when you don’t see it, God is silently working things out for you. 🌿</p>
+    <p class="message" id="motivationalMessage">Loading message...</p>
+    <p class="today-message" id="footerToday">Loading date...</p>
   </div>
 
   <script>
@@ -107,6 +116,7 @@
 
       document.getElementById("today").innerHTML = "Today: <strong>" + todayStr + "</strong>";
       document.getElementById("cancellation").innerHTML = "✅ Work Permit Cancellation Completed: <strong>" + todayStr + "</strong>";
+      document.getElementById("footerToday").innerHTML = "📅 " + todayStr;
 
       const diffTime = dueDate.getTime() - today.getTime();
       const daysRemaining = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
@@ -116,6 +126,35 @@
       } else {
         document.getElementById("countdown").innerHTML = daysRemaining + " days remaining";
       }
+
+      // Motivational messages
+      const messages = [
+        "🌿 Even when you don’t see it, God is working through someone He trusts, for your good.",
+        "🌟 Your prayers are answered through souls God silently chooses to bless you.",
+        "🌸 Trust the timing — God sends help exactly when you need it, through trusted hands.",
+        "🌼 Stay patient. Someone has been sent for you, guided by His perfect plan.",
+        "✨ One day you'll realize — every blessing was delivered by hands chosen by God.",
+        "🍃 The miracles you wait for are already moving toward you, through the people He chooses.",
+        "💖 God's silent moves include sending a trusted heart to be there for you.",
+        "🎯 What is meant for you will find you — often through people sent by God.",
+        "🌿 Behind the scenes, He is arranging help for you through those He trusts.",
+        "💫 When you can't trace His hand, trust His heart — and the ones He places in your path."
+      ];
+
+      let index = 0;
+      const msgElement = document.getElementById("motivationalMessage");
+
+      function changeMessage() {
+        msgElement.style.opacity = 0;
+        setTimeout(() => {
+          msgElement.innerHTML = messages[index];
+          msgElement.style.opacity = 1;
+          index = (index + 1) % messages.length;
+        }, 1000);
+      }
+
+      changeMessage(); // First message immediately
+      setInterval(changeMessage, 5000); // Change every 5 seconds
     };
   </script>
 </body>
