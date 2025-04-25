@@ -158,7 +158,7 @@
 
       const daysToDue = diffDays(today, dueDate) + 1; // ✅ Add 1 to include today
       const daysToJoining = diffDays(today, joiningDate) + 1;
-      const daysToApply = diffDays(today, applyDate) + 1;
+      const daysToApply = diffDays(today, applyDate);
       const daysToVisa = diffDays(today, visaDate) + 1;
 
       document.getElementById("countdown").innerHTML = "🕒 " + (daysToDue > 0 ? daysToDue + " days remaining" : "⚠️ Time's up!");
