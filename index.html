@@ -24,7 +24,7 @@
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 10px 20px rgba(255, 173, 173, 0.2);
-      max-width: 400px;
+      max-width: 420px;
       width: 90%;
       animation: fadeInUp 1.5s ease-in-out;
     }
@@ -84,11 +84,15 @@
   <div class="card">
     <h1>🕒 Work Permit – Buffer Days</h1>
     <p class="date" id="today">Today: Loading...</p>
+    <p class="date" id="cancellation">✅ Work Permit Cancellation Completed: Loading...</p>
     <p class="date">Due Date: <strong>12 May 2025</strong></p>
     <p class="big" id="countdown">Loading...</p>
     <p class="note">(including today)</p>
+
     <div class="extra">🗓️ Expected Joining Date: <strong>11 May 2025</strong></div>
-    <div class="extra">🚫 Expected Permit Cancellation: <strong>25 April 2025</strong></div>
+    <div class="extra">🛂 Indian Consulate Attestation: <strong>26 April 2025</strong></div>
+    <div class="extra">🌍 MOFA Attestation: <strong>28 April 2025</strong></div>
+
     <p class="message">Even when you don’t see it, God is silently working things out for you. 🌿</p>
   </div>
 
@@ -102,6 +106,7 @@
       const todayStr = today.toLocaleDateString(undefined, options);
 
       document.getElementById("today").innerHTML = "Today: <strong>" + todayStr + "</strong>";
+      document.getElementById("cancellation").innerHTML = "✅ Work Permit Cancellation Completed: <strong>" + todayStr + "</strong>";
 
       const diffTime = dueDate.getTime() - today.getTime();
       const daysRemaining = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
