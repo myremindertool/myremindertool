@@ -76,6 +76,15 @@
       margin: 8px 0;
     }
 
+    .scroll-note {
+      font-size: 0.9rem;
+      color: #773344;
+      margin-top: 20px;
+    }
+    .scroll-note marquee {
+      padding-top: 10px;
+    }
+
     strong {
       color: #d63384;
     }
@@ -129,8 +138,15 @@
     <div class="section-title">🎓 Degree Certificate Attestation Dates:</div>
 
     <div class="important-dates">
-      <p>🛂 Indian Consulate Attestation: <strong>26 April 2025</strong></p>
-      <p>🌍 MOFA Attestation: <strong>28 April 2025</strong></p>
+      <p>🛂 Re-Indian Consulate Attestation: <strong>26 April 2025</strong></p>
+      <p>🌍 Re-MOFA Attestation: <strong>28 April 2025</strong></p>
+    </div>
+
+    <!-- ✅ Added scroll note below -->
+    <div class="scroll-note">
+      <marquee behavior="scroll" direction="left" scrollamount="3">
+        📢 Note: If you apply for the New Work Permit on <strong>29 April 2025</strong>, you will still have <strong>13 days</strong> of buffer remaining until the Due Date (<strong>12 May 2025</strong>).
+      </marquee>
     </div>
   </div>
 
@@ -156,7 +172,7 @@
         return Math.floor((t2 - t1) / (1000 * 60 * 60 * 24));
       };
 
-      const daysToDue = diffDays(today, dueDate) + 1; // ✅ Add 1 to include today
+      const daysToDue = diffDays(today, dueDate) + 1;
       const daysToJoining = diffDays(today, joiningDate) + 1;
       const daysToApply = diffDays(today, applyDate);
       const daysToVisa = diffDays(today, visaDate) + 1;
