@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>New Work Permit Countdown</title>
+  <title>Work Permit - Rhythm of Hope</title>
   <style>
     body {
       margin: 0;
@@ -138,11 +138,10 @@
     <div class="section-title">🎓 Degree Certificate Attestation Dates:</div>
 
     <div class="important-dates">
-      <p>✅ Indian Consulate Re-Attestation Completed <strong>26 April 2025</strong></p>
+      <p>✅ Indian Consulate Re-Attestation Completed: <strong>26 April 2025</strong></p>
       <p>🌍 Re-MOFA Attestation: <strong>28 April 2025</strong></p>
     </div>
 
-    <!-- ✅ Added scroll note below -->
     <div class="scroll-note">
       <marquee behavior="scroll" direction="left" scrollamount="3">
         📢 Note: If you apply for the New Work Permit on <strong>29 April 2025</strong>, you will still have <strong>13 days</strong> of buffer remaining until the Due Date (<strong>12 May 2025</strong>).
@@ -156,7 +155,7 @@
       today.setHours(0, 0, 0, 0);
 
       const dueDate = new Date("2025-05-12");
-      const joiningDate = new Date("2025-05-11");
+      const joiningDate = new Date("2025-05-12"); // ✅ Updated joining date here
       const applyDate = new Date("2025-04-29");
       const visaDate = new Date("2025-11-12");
 
@@ -179,7 +178,7 @@
 
       document.getElementById("countdown").innerHTML = "🕒 " + (daysToDue > 0 ? daysToDue + " days remaining" : "⚠️ Time's up!");
 
-      document.getElementById("joiningDate").innerHTML = "<strong>11 May 2025</strong>" + (daysToJoining >= 0 ? ` (${daysToJoining} days remaining)` : " (Date Passed)");
+      document.getElementById("joiningDate").innerHTML = "<strong>12 May 2025</strong>" + (daysToJoining >= 0 ? ` (${daysToJoining} days remaining)` : " (Date Passed)");
       document.getElementById("applyDate").innerHTML = "<strong>29 April 2025</strong>" + (daysToApply >= 0 ? ` (${daysToApply} days remaining)` : " (Date Passed)");
       document.getElementById("visaDate").innerHTML = "<strong>12 November 2025</strong>" + (daysToVisa >= 0 ? ` (${daysToVisa} days remaining)` : " (Date Passed)");
 
