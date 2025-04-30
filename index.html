@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Work Permit - Rhythm of Hope</title>
+  <title>Congratulations – Work Permit Milestone 🎉</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ffe6ec, #fff7db);
+      background: radial-gradient(circle at center, #fff7db, #ffe6ec);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,31 +19,48 @@
       padding: 20px;
       text-align: center;
       animation: fadeIn 2s ease-in-out;
+      overflow: hidden;
     }
 
     .card {
-      background: #ffffffcc;
-      backdrop-filter: blur(5px);
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(255, 173, 173, 0.25);
-      max-width: 500px;
+      background: #ffffffdd;
+      backdrop-filter: blur(8px);
+      padding: 45px 35px;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(255, 173, 173, 0.35);
+      max-width: 580px;
       width: 100%;
       animation: fadeInUp 1.5s ease-in-out;
+      z-index: 1;
+      position: relative;
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: #cc3366;
       margin-bottom: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    .popup-message {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #bb1166;
+      background: #fff0f5;
+      padding: 15px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      animation: fadeInSlide 2.5s ease-out forwards;
+      opacity: 0;
     }
 
     .message {
       font-style: italic;
-      font-size: 1rem;
-      color: #666;
-      margin-top: 5px;
-      margin-bottom: 20px;
+      font-size: 1.15rem;
+      color: #444;
+      margin-top: 10px;
+      margin-bottom: 25px;
     }
 
     .section-title {
@@ -59,7 +79,7 @@
     }
 
     .countdown {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #d63384;
       font-weight: bold;
       margin-top: 15px;
@@ -76,21 +96,12 @@
       margin: 8px 0;
     }
 
-    .scroll-note {
-      font-size: 0.9rem;
-      color: #773344;
-      margin-top: 20px;
-    }
-    .scroll-note marquee {
-      padding-top: 10px;
-    }
-
     strong {
       color: #d63384;
     }
 
     .note {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #995577;
       margin-top: 5px;
     }
@@ -105,34 +116,48 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes fadeInSlide {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
     @media (max-width: 500px) {
       h1 {
         font-size: 1.5rem;
       }
       .countdown {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
+      }
+      .popup-message {
+        font-size: 1.4rem;
+        padding: 12px 18px;
       }
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>🕒 Work Permit - Rhythm of Hope ✨</h1>
+    <div class="popup-message">Your prayers were heard — He did it at the perfect time. ✨</div>
+    <h1>🎆 Boom! You Did It! 💖</h1>
+    <p class="message">This moment marks a joyful explosion of effort, faith, and dreams coming true. You’ve stepped into your next chapter with grace and courage. 🌈</p>
 
-    <p class="message" id="motivation">Loading inspirational message...</p>
-
-    <p class="date" id="today">Today: Loading...</p>
-    <p class="date">Due Date: <strong>12 May 2025</strong></p>
-    <p class="countdown" id="countdown">Loading days remaining...</p>
-    <p class="note">(including today; calculated as per 6 calendar months validity rule —184 days)</p>
+    <p class="date">📅 Today: <strong>April 30, 2025</strong></p>
+    <p class="countdown">🎯 Work Permit Application Successfully Completed on <strong>29 April 2025</strong></p>
+    <p class="note">(A stepping stone toward your future — well done!)</p>
 
     <div class="section-title">📋 Important Dates:</div>
 
     <div class="important-dates">
-      <p>✅ Old Work Permit Cancellation Completed: <strong id="cancellation">Loading...</strong></p>
-      <p>🗓️ Expected Joining Date: <span id="joiningDate">Loading...</span></p>
-      <p>📄 Apply for New Work Permit: <span id="applyDate">Loading...</span></p>
-      <p>🛂 Visa Expiry Date: <span id="visaDate">Loading...</span></p>
+      <p>✅ Old Work Permit Cancellation Completed: <strong>26 April 2025</strong></p>
+      <p>🗓️ Expected Joining Date: <strong>12 May 2025</strong> (13 days remaining)</p>
+      <p>✅ New Work Permit Application Completed: <strong>29 April 2025</strong></p>
+      <p>🛂 Visa Expiry Date: <strong>12 November 2025</strong> (196 days remaining)</p>
     </div>
 
     <div class="section-title">🎓 Degree Certificate Attestation Dates:</div>
@@ -141,73 +166,20 @@
       <p>✅ Indian Consulate Re-Attestation Completed: <strong>26 April 2025</strong></p>
       <p>✅ MOFA Re-Attestation Completed: <strong>28 April 2025</strong></p>
     </div>
-
-    <div class="scroll-note">
-      <marquee behavior="scroll" direction="left" scrollamount="3">
-        📢 Note: If you apply for the New Work Permit on <strong>29 April 2025</strong>, you will still have <strong>13 days</strong> of buffer remaining until the Due Date (<strong>12 May 2025</strong>).
-      </marquee>
-    </div>
   </div>
 
   <script>
     window.onload = function () {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const dueDate = new Date("2025-05-12");
-      const joiningDate = new Date("2025-05-12"); // ✅ Updated joining date here
-      const applyDate = new Date("2025-04-29");
-      const visaDate = new Date("2025-11-12");
-
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const todayStr = today.toLocaleDateString(undefined, options);
-
-      document.getElementById("today").innerHTML = "📅 Today: <strong>" + todayStr + "</strong>";
-      document.getElementById("cancellation").innerHTML = todayStr;
-
-      const diffDays = (d1, d2) => {
-        const t1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
-        const t2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
-        return Math.floor((t2 - t1) / (1000 * 60 * 60 * 24));
-      };
-
-      const daysToDue = diffDays(today, dueDate) + 1;
-      const daysToJoining = diffDays(today, joiningDate) + 1;
-      const daysToApply = diffDays(today, applyDate);
-      const daysToVisa = diffDays(today, visaDate) + 1;
-
-      document.getElementById("countdown").innerHTML = "🕒 " + (daysToDue > 0 ? daysToDue + " days remaining" : "⚠️ Time's up!");
-
-      document.getElementById("joiningDate").innerHTML = "<strong>12 May 2025</strong>" + (daysToJoining >= 0 ? ` (${daysToJoining} days remaining)` : " (Date Passed)");
-      document.getElementById("applyDate").innerHTML = "<strong>29 April 2025</strong>" + (daysToApply >= 0 ? ` (${daysToApply} days remaining)` : " (Date Passed)");
-      document.getElementById("visaDate").innerHTML = "<strong>12 November 2025</strong>" + (daysToVisa >= 0 ? ` (${daysToVisa} days remaining)` : " (Date Passed)");
-
-      const messages = [
-        "Even when you don’t see it, God is working through someone He trusts, for your good. 🌿",
-        "Your prayers are answered through souls God silently chooses to bless you. 🌟",
-        "Trust the timing — God sends help exactly when you need it, through trusted hands. 🌸",
-        "Stay patient. Someone has been sent for you, guided by His perfect plan. 🌼",
-        "The miracles you wait for are already moving toward you, through the people He chooses. 🍃",
-        "God's silent moves include sending a trusted heart to be there for you. 💖",
-        "What is meant for you will find you. 🎯",
-        "Behind the scenes, He is arranging help. 🌿",
-        "When you can't trace His hand, trust His heart — and the ones He places in your path. 💫"
-      ];
-
-      let current = 0;
-      const motivationEl = document.getElementById("motivation");
-
-      function showMessage() {
-        motivationEl.style.opacity = 0;
-        setTimeout(() => {
-          motivationEl.innerText = messages[current];
-          motivationEl.style.opacity = 1;
-          current = (current + 1) % messages.length;
-        }, 500);
-      }
-
-      showMessage();
-      setInterval(showMessage, 5000);
+      setInterval(() => {
+        confetti({
+          particleCount: 80,
+          spread: 100,
+          origin: { x: Math.random(), y: Math.random() * 0.6 },
+          gravity: 0.9,
+          scalar: 1.2,
+          zIndex: 999
+        });
+      }, 800);
     };
   </script>
 </body>
